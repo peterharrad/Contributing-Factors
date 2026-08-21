@@ -1,0 +1,29 @@
+---
+title: "About"
+image: profile.png
+about:
+  template: jolla
+  links:
+    - icon: bluesky
+      text: Bluesky
+      href: https://bsky.app/
+    - icon: linkedin
+      text: LinkedIn
+      href: https://linkedin.com
+    - icon: github
+      text: Github
+      href: https://github.com
+
+---
+
+About
+
+I'm Peter Harrad. For about thirty years I've worked in the space between technical systems and the people who depend on them — as a solutions architect, a presales consultant, and most recently as a senior business analyst at G-Research, where I designed root cause analysis and policy frameworks and led the operational risk work for the firm's move into options trading. Before that I built out the North American arm of an enterprise architecture software vendor, and spent several years consulting on process and architecture for clients across financial services and government.
+
+The common thread is finding out what's actually going on. Usually that means asking a question nobody has quite asked in that form before, then going and getting the evidence rather than assuming the answer.
+
+This blog is where that instinct gets pointed at things outside work. Council spending data. Leasehold service charge accounts. Tribunal decisions. Correspondence archives. Some of it is civic — I'm a director of the Right to Manage company for my building, so I have a stake in a few of these questions and I say so where it's relevant. Some of it is professional, working through cybersecurity and detection tooling as I go. Occasionally it's just something I got curious about.
+
+The name is borrowed from incident analysis, where the honest finding is usually not a single root cause but a set of contributing factors that had to line up. That's how most of the things I write about here turn out too.
+
+Code for these posts is on GitHub. I'm on LinkedIn.
