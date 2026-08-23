@@ -7,7 +7,7 @@ execute:
   
 website:
   description: "Ecletic explorations of data, process and fixing problems"
-  site-url: https://your-website-url.example.com # you must change this appropriately for RSS feeds to work properly
+  site-url: https://peterharrad.github.io/Contributing-Factors/
   title: "Contributing-Factors"
   comments:
     giscus:

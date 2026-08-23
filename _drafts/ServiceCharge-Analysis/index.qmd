@@ -1,0 +1,12 @@
+---
+title: "Analysing my block's service charges with Jupyter"
+description: "It turns out that the same skills of persuasion, stakeholder management, and the patience to navigate regulatory processes are transferable to booting out an unsatisfactory block manager"
+author: "Peter Harrad"
+date: "23/08/2026"
+categories:
+  - data analysis
+  - block management
+format: html
+draft: false
+---
+
