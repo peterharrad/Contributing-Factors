@@ -1,10 +1,21 @@
 project:
   type: website
+  output-dir: docs
 
+execute:
+  freeze: auto
+  
 website:
   description: "Ecletic explorations of data, process and fixing problems"
   site-url: https://your-website-url.example.com # you must change this appropriately for RSS feeds to work properly
   title: "Contributing-Factors"
+  comments:
+    giscus:
+      repo: peterharrad/Contributing-Factors
+      category: Comments
+      mapping: pathname
+      reactions-enabled: true
+      theme: preferred_color_scheme
   navbar:
     right:
       - about.qmd
