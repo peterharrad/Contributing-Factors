@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
-    "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
-  },
-  {
     "objectID": "posts/RH-RTMEffort/index.html",
     "href": "posts/RH-RTMEffort/index.html",
     "title": "Right To Manage - business transformation at my apartment block",
@@ -84,13 +77,6 @@
     "text": "Conclusion\nA presales or business transformation effort requires the ability to craft an argument, reach stakeholders, manage stakeholders and navigate process and regulatory landscapes. All of these came to play in this effort. Going from 12 initial supporters to 66 needed a combination of cold approach, and networking - but just as in business, referrals win out every time. Looking to prehandle stakeholder objections was the right call, even if I failed to anticipate a key one - at the very least, the patterns put in place brought enough credibility to ride out that objection. Identifying the right suppliers with a traceable set of decisions also built trust. Last of all, simply being able to comprehend the process and describe it intelligently meant that the necessary notices did not provoke panic when they landed in leaseholders’ mailboxes."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Contributing-Factors",
-    "section": "",
-    "text": "Analysing my block’s service charges with Jupyter\n\n\n\ndata analysis\n\nblock management\n\n\n\nIt turns out that the same skills of persuasion, stakeholder management, and the patience to navigate regulatory processes are transferable to booting out an unsatisfactory block manager\n\n\n\n\n\nNov 8, 2027\n\n\nPeter Harrad\n\n\n\n\n\n\n\n\n\n\n\n\nRight To Manage - business transformation at my apartment block\n\n\n\npersuasion\n\nstakeholder management\n\nblock management\n\nregulatory\n\n\n\nHow I got 86% of leaseholders in a 77-flat buy-to-let block to back a Right to Manage claim — and why it was a stakeholder management problem.\n\n\n\n\n\nAug 23, 2026\n\n\nPeter Harrad\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nAug 21, 2026\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nAug 18, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -98,10 +84,10 @@
     "text": "About\nI’m Peter Harrad. For about thirty years I’ve worked in the space between technical systems and the people who depend on them — as a solutions architect, a presales consultant, and most recently as a senior business analyst at G-Research, where I designed root cause analysis and policy frameworks and led the operational risk work for the firm’s move into options trading. Before that I built out the North American arm of an enterprise architecture software vendor, and spent several years consulting on process and architecture for clients across financial services and government.\nThe common thread is finding out what’s actually going on. Usually that means asking a question nobody has quite asked in that form before, then going and getting the evidence rather than assuming the answer.\nThis blog is where that instinct gets pointed at things outside work. Council spending data. Leasehold service charge accounts. Tribunal decisions. Correspondence archives. Some of it is civic — I’m a director of the Right to Manage company for my building, so I have a stake in a few of these questions and I say so where it’s relevant. Some of it is professional, working through cybersecurity and detection tooling as I go. Occasionally it’s just something I got curious about.\nThe name is borrowed from incident analysis, where the honest finding is usually not a single root cause but a set of contributing factors that had to line up. That’s how most of the things I write about here turn out too.\nCode for these posts is on GitHub. I’m on LinkedIn."
   },
   {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Contributing-Factors",
     "section": "",
-    "text": "This is a post with executable code."
+    "text": "Right To Manage - business transformation at my apartment block\n\n\n\npersuasion\n\nstakeholder management\n\nblock management\n\nregulatory\n\n\n\nHow I got 86% of leaseholders in a 77-flat buy-to-let block to back a Right to Manage claim — and why it was a stakeholder management problem.\n\n\n\n\n\nAug 23, 2026\n\n\nPeter Harrad\n\n\n\n\n\nNo matching items"
   }
 ]

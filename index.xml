@@ -10,26 +10,7 @@
 <atom:link href="https://peterharrad.github.io/Contributing-Factors/index.xml" rel="self" type="application/rss+xml"/>
 <description>Ecletic explorations of data, process and fixing problems</description>
 <generator>quarto-1.10.18</generator>
-<lastBuildDate>Mon, 08 Nov 2027 00:00:00 GMT</lastBuildDate>
-<item>
-  <title>Analysing my block’s service charges with Jupyter</title>
-  <dc:creator>Peter Harrad</dc:creator>
-  <link>https://peterharrad.github.io/Contributing-Factors/posts/ServiceCharge-Analysis/Index.html</link>
-  <description><![CDATA[ 
-
-
-
-
-
-
-
-
- ]]></description>
-  <category>data analysis</category>
-  <category>block management</category>
-  <guid>https://peterharrad.github.io/Contributing-Factors/posts/ServiceCharge-Analysis/Index.html</guid>
-  <pubDate>Mon, 08 Nov 2027 00:00:00 GMT</pubDate>
-</item>
+<lastBuildDate>Sat, 22 Aug 2026 23:00:00 GMT</lastBuildDate>
 <item>
   <title>Right To Manage - business transformation at my apartment block</title>
   <dc:creator>Peter Harrad</dc:creator>
@@ -140,49 +121,6 @@
   <guid>https://peterharrad.github.io/Contributing-Factors/posts/RH-RTMEffort/</guid>
   <pubDate>Sat, 22 Aug 2026 23:00:00 GMT</pubDate>
   <media:content url="https://peterharrad.github.io/Contributing-Factors/posts/RH-RTMEffort/supporters-bars.png" medium="image" type="image/png" height="74" width="144"/>
-</item>
-<item>
-  <title>Post With Code</title>
-  <dc:creator>Harlow Malloc</dc:creator>
-  <link>https://peterharrad.github.io/Contributing-Factors/posts/post-with-code/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>This is a post with executable code.</p>
-
-
-
- ]]></description>
-  <category>news</category>
-  <category>code</category>
-  <category>analysis</category>
-  <guid>https://peterharrad.github.io/Contributing-Factors/posts/post-with-code/</guid>
-  <pubDate>Thu, 20 Aug 2026 23:00:00 GMT</pubDate>
-  <media:content url="https://peterharrad.github.io/Contributing-Factors/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title>Welcome To My Blog</title>
-  <dc:creator>Tristan O&#39;Malley</dc:creator>
-  <link>https://peterharrad.github.io/Contributing-Factors/posts/welcome/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>This is the first post in a Quarto blog. Welcome!</p>
-<p><img src="https://peterharrad.github.io/Contributing-Factors/posts/welcome/thumbnail.jpg" class="img-fluid"></p>
-<p>Since this post doesn’t specify an explicit <code>image</code>, the first image in the post will be used in the listing page of posts.</p>
-
-
-
- ]]></description>
-  <category>news</category>
-  <guid>https://peterharrad.github.io/Contributing-Factors/posts/welcome/</guid>
-  <pubDate>Mon, 17 Aug 2026 23:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>
