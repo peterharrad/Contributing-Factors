@@ -6,15 +6,15 @@
       version="2.0">
 <channel>
 <title>Contributing-Factors</title>
-<link>https://peterharrad.github.io/Contributing-Factors/</link>
-<atom:link href="https://peterharrad.github.io/Contributing-Factors/index.xml" rel="self" type="application/rss+xml"/>
+<link>https://harrad.org/</link>
+<atom:link href="https://harrad.org/index.xml" rel="self" type="application/rss+xml"/>
 <description>Ecletic explorations of data, process and fixing problems</description>
 <generator>quarto-1.10.18</generator>
 <lastBuildDate>Sat, 22 Aug 2026 23:00:00 GMT</lastBuildDate>
 <item>
   <title>Right To Manage - business transformation at my apartment block</title>
   <dc:creator>Peter Harrad</dc:creator>
-  <link>https://peterharrad.github.io/Contributing-Factors/posts/RH-RTMEffort/</link>
+  <link>https://harrad.org/posts/RH-RTMEffort/</link>
   <description><![CDATA[ 
 
 
@@ -59,7 +59,7 @@
 <p>8 more were to join us over the coming months, but we had enough at this point.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://peterharrad.github.io/Contributing-Factors/posts/RH-RTMEffort/supporters-bars.png" class="img-fluid figure-img"></p>
+<p><img src="https://harrad.org/posts/RH-RTMEffort/supporters-bars.png" class="img-fluid figure-img"></p>
 <figcaption>Where the support actually came from</figcaption>
 </figure>
 </div>
@@ -96,7 +96,7 @@
 <p>How much will the service charge come down by? We’ll know once we have the new budget in place, but the consensus is that RTM cuts charges from 10% to 30% or even much more. A highly comparable block has roughly half the service charge levels.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://peterharrad.github.io/Contributing-Factors/posts/RH-RTMEffort/status.png" class="img-fluid figure-img"></p>
+<p><img src="https://harrad.org/posts/RH-RTMEffort/status.png" class="img-fluid figure-img"></p>
 <figcaption>The final tally of supporters, floor by floor. Green is a leaseholder in favour: 66 of 77, against the 39 required.</figcaption>
 </figure>
 </div>
@@ -118,9 +118,9 @@
   <category>stakeholder management</category>
   <category>block management</category>
   <category>regulatory</category>
-  <guid>https://peterharrad.github.io/Contributing-Factors/posts/RH-RTMEffort/</guid>
+  <guid>https://harrad.org/posts/RH-RTMEffort/</guid>
   <pubDate>Sat, 22 Aug 2026 23:00:00 GMT</pubDate>
-  <media:content url="https://peterharrad.github.io/Contributing-Factors/posts/RH-RTMEffort/supporters-bars.png" medium="image" type="image/png" height="74" width="144"/>
+  <media:content url="https://harrad.org/posts/RH-RTMEffort/supporters-bars.png" medium="image" type="image/png" height="74" width="144"/>
 </item>
 </channel>
 </rss>
