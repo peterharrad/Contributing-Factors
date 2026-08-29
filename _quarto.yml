@@ -9,6 +9,7 @@ website:
   description: "Ecletic explorations of data, process and fixing problems"
   site-url: https://harrad.org/
   title: "Contributing-Factors"
+  draft-mode: gone
   comments:
     giscus:
       repo: peterharrad/Contributing-Factors
