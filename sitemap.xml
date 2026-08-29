@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://harrad.org/posts/RH-RTMEffort/index.html</loc>
-    <lastmod>2026-08-24T07:33:42.538Z</lastmod>
-  </url>
-  <url>
-    <loc>https://harrad.org/about.html</loc>
-    <lastmod>2026-08-24T07:33:42.535Z</lastmod>
+    <loc>https://harrad.org/posts/ServiceCharge-Analysis/Index.html</loc>
+    <lastmod>2026-08-29T15:10:09.444Z</lastmod>
   </url>
   <url>
     <loc>https://harrad.org/index.html</loc>
-    <lastmod>2026-08-24T07:33:42.536Z</lastmod>
+    <lastmod>2026-08-29T15:20:14.487Z</lastmod>
+  </url>
+  <url>
+    <loc>https://harrad.org/about.html</loc>
+    <lastmod>2026-08-29T15:20:14.487Z</lastmod>
+  </url>
+  <url>
+    <loc>https://harrad.org/posts/RH-RTMEffort/index.html</loc>
+    <lastmod>2026-08-29T15:20:14.489Z</lastmod>
   </url>
 </urlset>

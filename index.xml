@@ -10,7 +10,391 @@
 <atom:link href="https://harrad.org/index.xml" rel="self" type="application/rss+xml"/>
 <description>Ecletic explorations of data, process and fixing problems</description>
 <generator>quarto-1.10.18</generator>
-<lastBuildDate>Sat, 22 Aug 2026 23:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 28 Aug 2026 23:00:00 GMT</lastBuildDate>
+<item>
+  <title>A deep dive into service charge history</title>
+  <dc:creator>Peter Harrad</dc:creator>
+  <link>https://harrad.org/posts/ServiceCharge-Analysis/Index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>As described in my previous post, I spent most of H1 2026 leading a Right To Manage effort for my apartment block. Now we directors need to start understanding the service charge - the history, the components and the areas to be wary of. I’ve used tools like pandas and Jupyter notebooks before, but I thought it would be interesting to see how Claude Code would do on such a task. Supporting files are <a href="https://github.com/peterharrad/Service-Charge">here</a></p>
+<p>The exploration was useful in giving areas for us to look at, but also exposed some intriguing pitfalls of using AI for this kind of work.</p>
+<ul>
+<li>Key points:
+<ul>
+<li>Don’t trust the AI to find the right data without guidance</li>
+<li>An AI-written redaction script leaked the names it was redacting — in a comment, a variable name, and an array literal</li>
+<li>Lexical analysis is vulnerable to repeated text and small corpora of text</li>
+<li>Expect a single request to provide a lot of analysis - be wary of it pushing you in a particular direction</li>
+<li>Jupyter throws lots of graphs at you, the Claude Code interface throws lots of commentary at you. So what you need should guide the tool</li>
+</ul></li>
+</ul>
+</section>
+<section id="getting-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="getting-the-data">Getting the Data</h2>
+<p>I moved in 7 years ago, and had documents mostly covering that period. The first hiccup was that halfway through, our existing managing agent was bought by another company, with a different approach to presenting the accounts. The 2021 accounts were a bare ledger dump and there was no 2023 budget, so figures for those years come from the comparative columns of the following year’s accounts. The apparent change of agent is a rename rather than a handover — <a href="https://find-and-update.company-information.service.gov.uk/company/06805193">the same company throughout</a> — so the comparatives are the same organisation restating its own figures, not a successor reconstructing a predecessor’s. Where I could check a comparative against the original, the carry-over was exact. All in all, I had actuals for 2019-2025, and budgets for 2020 and 2022-2026. It felt like this was enough to start with. The accounts and budgets from 2024 also had commentaries, which opened the door to some extra analysis - to be discussed later.</p>
+</section>
+<section id="getting-the-financial-data" class="level2">
+<h2 class="anchored" data-anchor-id="getting-the-financial-data">Getting the financial data</h2>
+<p>The early accounts to 2022 were scanned images. To start, I simply instructed Claude to extract the P&amp;L for each year, from each file. Claude did an excellent job (zero transcription errors), but was most apologetic - explaining that the scanned files didn’t separate out P&amp;L into the different budget schedules that the block had. Which, on checking, turned out to be complete rubbish. Lesson - don’t just check the figures that AI brings you, check if it simply didn’t read far enough in the document. Fixed by rerunning the command but specifying the precise pages in the scanned document to look at.</p>
+<p>The next issue was that the two sets of accounts had slightly different categories - e.g.&nbsp;the old one separated out insurance types, the new one aggregated them. Decision: the newer agent was the more pertinent data, so I had the AI aggregate the older data accordingly.</p>
+<p>Lesson learned: check the data that AI extracts, but also check availability, despite what the AI tells you.</p>
+</section>
+<section id="cleansing-the-commentary" class="level2">
+<h2 class="anchored" data-anchor-id="cleansing-the-commentary">Cleansing the commentary</h2>
+<p>With a post like this, it’s natural that I might be expected to share the source data. Which means that I needed to be aware of confidentiality. In particular, where people’s names and contact details were shown, as well as specific quotes that contractors provided, these had to be redacted. There was also a question of whether anything in the commentary could be sensitive to the block itself.</p>
+<p>So I had the AI create three scripts:</p>
+<ul>
+<li>redact_docx.py - a simple matching script to remove names and contact information. No reason to feed spammers.</li>
+<li>score_sensitivity.py - a heuristic to score each line on potential sensitivity based on what it discussed and produce a file for me to inspect</li>
+<li>sanitise_docx.py - a script to clean out any contractual figures and remove any lines that the sensitive line analysis had thrown up</li>
+</ul>
+<p>Simple enough, no? And if I hadn’t intended to share the scripts it would have been fine.</p>
+<p>redact_docx.py helpfully listed the names and details for it to redact in the comments that had been generated at the top, and then listed the names in an array. Meanwhile, after I asked for sanitise_docx to remove a specific line that related to security, it had helpfully explained this removal in the comments and the code to do so was helpfully named in way that made it clear what information was being removed. Oops. So a couple of quick manual edits were in order. In practice, the time taken was probably equal to redacting the information manually… but this was useful learning for a future project that I’ll be writing about.</p>
+<p>Lesson learned (or, rather, reinforced): Check the scripts that AI generates, not just the outputs. In retrospect, I should have explicitly told it to obfuscate the names of the relevant variables and functions.</p>
+</section>
+<section id="financial-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="financial-analysis">Financial Analysis</h2>
+<p>Two questions stood out for me in the service charge - which areas had the greatest growth, and which areas showed the greatest variance of actual versus budget?</p>
+<p>Asking about growth areas produced an impressive set of graphs, with two standing out as particularly useful. As shown below, general maintenance, electricity, and plant and machinery all stand out as significant items and topics that the directors need to dig into. It’s noticeable that reserve contributions are incredibly volatile - it seems like both agents used it as a smoothing function for the budget totals.</p>
+<div id="fig-budgetgrowth" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-budgetgrowth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://harrad.org/posts/ServiceCharge-Analysis/BudgetGrowth.png" class="img-fluid figure-img"></p>
+<figcaption>Heatmap of items</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://harrad.org/posts/ServiceCharge-Analysis/chart-expenditure-by-category.png" class="img-fluid figure-img"></p>
+<figcaption>Line item of key categories</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-budgetgrowth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Two graphs showing the same culprits for service charge growth
+</figcaption>
+</figure>
+</div>
+<p>Variance tells a similar story. It seems clear that maintenance is not only one of the biggest contributors to service charge growth, but also one of the most unanticipated</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://harrad.org/posts/ServiceCharge-Analysis/chart-bias-vs-volatility.png" class="img-fluid figure-img"></p>
+<figcaption>Identifying the key areas of variance</figcaption>
+</figure>
+</div>
+</section>
+<section id="commentary-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="commentary-analysis">Commentary Analysis</h2>
+<p>Likewise, there were two areas that interested me in the commentary. Specifically, did the commentaries tend to claim success or failure on specific topics, and did the language become more handwavy and evasive for the same topics. As an experiment, I decided to perform this via the Claude Code interface, not the Jupyter notebook.</p>
+<p>For the analysis of claimed success and failure, the commentary is negative 6 times more often than it’s positive - perhaps understandable when trying to justify spiralling service charges. What’s more interesting is the topic breakdown: Insurance is the most consistently negative presentation, while energy costs are presented as a relative success.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Topic</th>
+<th style="text-align: right;">Paras</th>
+<th style="text-align: right;">Optimism score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Insurance</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;"><strong>-2.94</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reserve fund</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">-1.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Water &amp; pumps</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">-1.40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fire safety</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">-1.25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Audit &amp; accounting</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;"><strong>+0.75</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Electricity &amp; energy</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">+0.25</td>
+</tr>
+</tbody>
+</table>
+<p>More interesting was the evasive language analysis. A simple lexical analysis script produced the following, rather questionable results. Boilerplate and FAQ scored second in the list - and the top category only covered 58 words. Time for a rethink.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Topic</th>
+<th style="text-align: right;">Paragraphs</th>
+<th style="text-align: right;">Words</th>
+<th style="text-align: right;">Terms</th>
+<th style="text-align: right;">Evasiveness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">General maintenance</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Boilerplate FAQ</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">309</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">4.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Security &amp; access</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">155</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">4.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Major works</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">185</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">4.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Audit &amp; accounting</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">269</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">4.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Electricity &amp; energy</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">948</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">4.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Reserve fund</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">440</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">3.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lifts</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">401</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">3.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Correspondence &amp; reassurance</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">604</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">3.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fire safety</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">1,155</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">3.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Water &amp; pumps</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">243</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Insurance</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">572</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">3.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Car park &amp; undercroft</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cleaning</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">246</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Grounds &amp; landscaping</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">102</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Management fee</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Service charge level</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">225</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Billing &amp; payment</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">1,344</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0.8</td>
+</tr>
+</tbody>
+</table>
+<p>A quick examination showed that the boilerplate was repeated across all five files, biasing the result. Likewise, the single comment on general maintenance scores highly - but could just be due to chance.</p>
+<p>Rebuilding the measure to deduplicate repeated text and drop thinly-populated topics moved boilerplate FAQ from second place to ninth, below almost every substantive topic — the original score was largely an artefact of the same standard passages recurring each year. On the cleaned figures electricity and energy tops the table at 3.8, with lifts and water and pumps also high; all of which show significant budget variance in the financial analysis. General maintenance and major works disappear from the analysis, which in some ways is telling - large areas of spend were simply skirted over.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Topic</th>
+<th style="text-align: right;">Paragraphs</th>
+<th style="text-align: right;">Words</th>
+<th style="text-align: right;">Terms</th>
+<th style="text-align: right;">Evasiveness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Electricity &amp; energy</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">869</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">3.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Correspondence &amp; reassurance</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">332</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">3.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lifts</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">358</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">3.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fire safety</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">909</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">3.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Water &amp; pumps</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">243</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Billing &amp; payment</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">190</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Reserve fund</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">254</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Insurance</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">308</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Boilerplate FAQ</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">699</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">2.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cleaning</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">211</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Unclassified</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">171</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.6</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>The analysis has highlighted some important areas for us to focus on. We need to dig into the electricity and understand what’s driving the growth and unpredictability. The repeated unexpected variance in maintenance highlights that an attempt to understand expected lifetimes of different systems is long overdue.</p>
+<p>Some other useful lessons fall out for future analysis using these tools.</p>
+<p>It’s often said that you should treat AI like an intern whose work needs to be thoroughly checked. Two examples came up in this effort. The AI did an excellent job at extracting data from the image files… yet needed to be told which page to look at. At the same time, the redaction scripts smoothly removed sensitive data - while exposing it in the source code. I’ve read that models are trained to write clear, self-documenting code — but this pushes in the opposite direction to confidentiality.</p>
+<p>A more subtle point is the initial problems with the evasive language. What could be a useful metric was initially badly biased due to repeated text and small sample size.</p>
+<p>A fourth point stands out - the tendency of Claude Code to attempt to use its initiative. Ask for a matrix of evasive words in the commentary by topic, and you get an entire essay opining on the results. Ask the Jupyter notebook to analyse variance of budget v actual, and get a swathe of tables and graphs. Not a problem, but a subtle trap to be wary of when using AI for this kind of work - the specific outputs can end up guiding you down a path instead of you guiding the outputs. Last of all, while this happens whether working via the Jupyter notebook or the Claude Code interface, it manifests in different ways due to the different constraints of the two interfaces. The Jupyter notebook throws a bunch of tables and graphs at you, while the Claude Code interface waxes lyrical with commentary.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>data analysis</category>
+  <category>using AI</category>
+  <category>block management</category>
+  <guid>https://harrad.org/posts/ServiceCharge-Analysis/Index.html</guid>
+  <pubDate>Fri, 28 Aug 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://harrad.org/posts/ServiceCharge-Analysis/chart-bias-vs-volatility.png" medium="image" type="image/png" height="101" width="144"/>
+</item>
 <item>
   <title>Right To Manage - business transformation at my apartment block</title>
   <dc:creator>Peter Harrad</dc:creator>
