@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Peter Harrad">
+<meta name="dcterms.date" content="2026-08-23">
+<meta name="description" content="How I got 86% of leaseholders in a 77-flat buy-to-let block to back a Right to Manage claim — and why it was a stakeholder management problem.">
 
-<title>Contributing-Factors</title>
+<title>Right To Manage - business transformation at my apartment block – Contributing-Factors</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,25 +32,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,77 +76,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
+<link rel="stylesheet" href="../../../../styles.css">
+</head>
 
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
-<link rel="alternate" type="application/rss+xml" title="Contributing-Factors" href="index.xml" data-external="1"></head>
-
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../../../index.html">
     <span class="navbar-title">Contributing-Factors</span>
     </a>
   </div>
@@ -156,7 +99,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -179,112 +122,147 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Contributing-Factors</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Right To Manage - business transformation at my apartment block</h1>
+                  <div>
+        <div class="description">
+          How I got 86% of leaseholders in a 77-flat buy-to-let block to back a Right to Manage claim — and why it was a stakeholder management problem.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">persuasion</div>
+                <div class="quarto-category">stakeholder management</div>
+                <div class="quarto-category">block management</div>
+                <div class="quarto-category">regulatory</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Peter Harrad </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">23 August 2026</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="YmxvY2slMjBtYW5hZ2VtZW50">block management <span class="quarto-category-count">(2)</span></div><div class="category" data-category="ZGF0YSUyMGFuYWx5c2lz">data analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cGVyc3Vhc2lvbg==">persuasion <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cmVndWxhdG9yeQ==">regulatory <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c3Rha2Vob2xkZXIlMjBtYW5hZ2VtZW50">stakeholder management <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dXNpbmclMjBBSQ==">using AI <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="ZGF0YSUyMGFuYWx5c2lzJTJDdXNpbmclMjBBSSUyQ2Jsb2NrJTIwbWFuYWdlbWVudA==" data-listing-date-sort="1787958000000" data-listing-file-modified-sort="1788331179987" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2002">
-<div class="thumbnail"><a href="./posts/2026/08/ServiceCharge-Analysis/Index.html" class="no-external">
-
-<img loading="lazy" src="./posts/2026/08/ServiceCharge-Analysis/chart-bias-vs-volatility.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2026/08/ServiceCharge-Analysis/Index.html" class="no-external">A deep dive into service charge history</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGF0YSUyMGFuYWx5c2lz'); return false;">data analysis</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('dXNpbmclMjBBSQ=='); return false;">using AI</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('YmxvY2slMjBtYW5hZ2VtZW50'); return false;">block management</div>
-
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Harry Scoffin, the founder of Free Leaseholders, recently told a <a href="https://www.youtube.com/watch?v=-6nLK1Kwj6w">Housing Committee hearing</a> that getting 50% of leaseholders in a large buy-to-let block to agree on anything is almost impossible. We got 86%, with nobody against. So I wanted to share how I rallied a coalition of mostly absentee landlords to exceed this figure so clearly, to take control of the block and rescue my equity - and how doing so ended up using a lot of the skills from past roles in presales and business transformation.</p>
+<p>Late last year, I discovered that my apartment would be almost unsellable, as it was now one of the <a href="https://thenegotiator.co.uk/news/regulation-law-news/a-third-of-flats-may-be-unsellable-in-latest-housing-crisis/">estimated 37% of flats</a> in the UK whose service charge now exceeds 1% of the property’s value — the point at which lenders start refusing mortgages. When leaseholders of such properties have to sell, they are forced to sell at cash auction for a substantial discount. This was unacceptable.</p>
+<p>So I decided to rally the other leaseholders to obtain Right to Manage - the legal right of a block of flats in this country to demand control of the management of the block. I had to forge a group of mostly remote leaseholders (some with a level of adversarial history) into a unified community, and keep it together while navigating a complex regulatory framework with a counterparty that had an inbuilt incentive to resist our efforts.</p>
+</section>
+<section id="building-the-base-of-support" class="level2">
+<h2 class="anchored" data-anchor-id="building-the-base-of-support">Building the base of support</h2>
+<p>We needed the support of 39 units - at least 50% of the block had to be members of the RTM Company before we could claim. The immediate problem that we faced, was how to contact and get in touch with a group of leaseholders who did not live in the block, and whose contact details were unknown. From the start I decided against asking the incumbent managing agent - there was essentially no chance that they would help, and tipping them off might cause them to start their own campaign to undermine ours. To start with, I used my existing network. There was already a small community of resident leaseholders held together via an email group and a WhatsApp group. I’d personally managed to add several people to this community by actively engaging with unknown residents - purely because you never know when a connection might be mutually beneficial.</p>
+<p>This gave us a starter group of 12 - with 39 needed and ideally up to a dozen more. My working assumption was to treat the remaining units as rented out. Now, one option for the next step might have been to download the titles for the remaining units, and write to the registered addresses.</p>
+<p>I chose not to do this as the next step for several reasons:</p>
+<ul>
+<li>The title registers cost £7 a time</li>
+<li>People often forget to update their contact details on title registers when they move, and a look at property sales data showed that the majority of the units had not changed hands in 20 years</li>
+<li>Letters are common and what with junkmail, the inclination is to dismiss an unexpected letter - “how can I get rid of this?”. A mailshot, personally signed by another resident, stands out</li>
+<li>Landlords are often in touch with their tenants and some even have cordial relations in place</li>
+</ul>
+<p>So instead, I chose to do a personal mailshot - printing out 65 leaflets to place in each mailbox.</p>
+</section>
+<section id="selling-with-the-mailshot" class="level2">
+<h2 class="anchored" data-anchor-id="selling-with-the-mailshot">Selling with the mailshot</h2>
+<p>The mailshot was essentially a sales pitch - as a tenant, why should you care, and why should your landlord care? In a case like this, you need a few carefully chosen talking points. Too many, and it feels like some hard-sell sales pitch on late night television. Too few, and you fail to persuade.</p>
+<p>So I chose to make the following talking points:</p>
+<ul>
+<li>If you are a tenant, rising service charges put financial pressure on your landlord to raise rents. Meanwhile, problems external to the flat are not fixed, affecting your quality of life</li>
+<li>If you are a landlord, the value of your investment is being slowly eaten away</li>
+</ul>
+<p>And on each leaflet was a request to pass on my contact details to the owner of the property.</p>
+<p>65 leaflets went out; over the course of a month, 13 new contacts reached out and stated their support for the effort. With something like this, you have to accept that some people will be slow to respond.</p>
+<p>25 supporters, 39 needed.</p>
+</section>
+<section id="moving-on-to-referrals" class="level2">
+<h2 class="anchored" data-anchor-id="moving-on-to-referrals">Moving on to referrals</h2>
+<p>Some people are natural connectors, and if you can convince them of your case, they will put you in touch with other potential supporters or sources of contacts. This effort proved no different. Two of the landlords had lists of other leaseholders from previous efforts to rally the community. 21 more supporters stated their support. 46 supporters with 39 needed. But ideally we wanted more.</p>
+<p>Another leaseholder was in contact with the director of the lettings agent who handled most of the lettings in the block - passed my details, they called me and after I convinced them of the cause, they contacted all their landlords that I was not in touch with. 12 more supporters - 58 total, with 39 needed.</p>
+<p>8 more were to join us over the coming months, but we had enough at this point.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="supporters-bars.png" class="img-fluid figure-img"></p>
+<figcaption>Where the support actually came from</figcaption>
+</figure>
 </div>
-<div class="delink listing-description"><a href="./posts/2026/08/ServiceCharge-Analysis/Index.html" class="no-external">
-<p>Using AI to gain insight into the growth in our block’s service charge - benefits and pitfalls</p>
-</a></div>
+</section>
+<section id="establishing-stakeholder-credibility" class="level2">
+<h2 class="anchored" data-anchor-id="establishing-stakeholder-credibility">Establishing stakeholder credibility</h2>
+<p>At this point, we had commitments from enough leaseholders and questions of stakeholder management came to the fore. There were two specific groups to consider.</p>
+<p>The first and most important stakeholder was the part-time caretaker. While not living on site, they knew a lot of what went on at the block, and it was only a matter of time before they heard about the effort and started questioning what it would mean for them. So I sat down with them and explained very carefully what we planned and how it would actually empower them. I took care to visit them regularly and update them on progress.</p>
+<p>The second stakeholder management question was how to keep the support of the group of supporters that I’d rallied. For historical reasons, certain leaseholders were deeply suspicious of each other, and I needed to avoid being seen to take sides.</p>
+<p>I foresaw two separate problems:</p>
+<ul>
+<li>Having gained support, I needed to keep it until the claim went in. In particular, I needed to build up trust for when it came time to join the company</li>
+<li>They might be concerned that I was making decisions to benefit myself to their own detriment</li>
+</ul>
+<p>Each required its own separate strategy.</p>
+<p>To keep people invested, I sent out regular email newsletters, explaining progress and what the next steps would be.</p>
+<p>To avoid the suspicion of this being my one-man feathering of the nest, I established an advisory committee made up of volunteers to act as a sounding board, with its own separate email and WhatsApp groups.</p>
+<p>This immediately provoked a challenge from a couple of leaseholders, who while unwilling to join this group felt that one who had would subvert the effort in order to reintroduce short-term letting in violation of the lease. I found myself spending significant time reassuring them that I was not inclined to allow this and in fact would have a statutory duty to enforce the lease provisions.</p>
+</section>
+<section id="calling-in-a-professional" class="level2">
+<h2 class="anchored" data-anchor-id="calling-in-a-professional">Calling in a professional</h2>
+<p>So now it was time to form the company and start the claim process. The RTM process is notoriously <a href="https://www.leaseholdknowledge.com/right-to-manage-or-right-to-endless-misery-in-the-courts/">full of pitfalls</a>, and if the freeholder or incumbent managing agent decides to challenge, working through the courts can take years. You have to invite all leaseholders to join the company; get a single thing wrong and the claim is invalid. You have to notify all parties, and if you get anything wrong, the claim is invalid. And then the freeholder can demand a mountain of background paperwork, and if there are any discrepancies or errors, the claim is invalid. With all these pitfalls, we felt it was necessary to engage advisors. There are a range of companies that will help you through the RTM process, charging a wide range of fees.</p>
+<p>We considered the key factors; the desire to ensure success so that we could immediately start work on reducing the service charge, and the fact that service charges were already in the mid 4-figures for most leaseholders. Given these, we engaged Shula Rich, one of the most recognised names in RTM advice provision. A key decision criterion was her stated approach of merely amending claims that were rejected for trivial reasons and resubmitting. This significantly reduced the risk of needing a lengthy and expensive challenge at the First Tier Tribunal, the section of the courts that deals with such disputes.</p>
+</section>
+<section id="choosing-the-replacement" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-the-replacement">Choosing the replacement</h2>
+<p>At the same time, we needed to choose a replacement managing agent. Some RTM efforts manage the block themselves, but for us, a 77-flat riverside block with 4 entrances and a caretaker needed a professional company.</p>
+<p>We created an ITT and sent it to a number of candidate companies after a couple of review iterations with the advisory committee. We then had each member of the advisory committee score the companies across five weighted categories, creating a shortlist of three. Detailed examinations and follow up questions produced a front runner, who we eventually engaged to take over. As with our advisor, their stated experience in taking over from the incumbent was a key factor.</p>
+</section>
+<section id="the-outcome" class="level2">
+<h2 class="anchored" data-anchor-id="the-outcome">The outcome</h2>
+<p>The claim was posted on the 4th of June. What with a weekend, deemed delivery was the 9th of June. The RTM regulations stated that the counterparties had a month to respond, so once we factored in another weekend and some leeway, we agreed a cutoff for response of the 13th of July. Again driven by the RTM regulations, the handover can only happen a minimum of 3 months after the response deadline. I chose to move it from Tuesday to Wednesday (to leave two clear working days between the weekends), so - the 14th of October.</p>
+<p>As expected, the freeholder immediately responded with a request for evidence - we had to hand over no less than 79 pages of documentation for them to pick through for discrepancies. On the 8th of July, the freeholder sent over their formal acceptance of the claim. Contrary to anecdote, they were highly professional at every step.</p>
+<p>How much will the service charge come down by? We’ll know once we have the new budget in place, but the consensus is that RTM cuts charges from 10% to 30% or even much more. A highly comparable block has roughly half the service charge levels.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="status.png" class="img-fluid figure-img"></p>
+<figcaption>The final tally of supporters, floor by floor. Green is a leaseholder in favour: 66 of 77, against the 39 required.</figcaption>
+</figure>
 </div>
-<div class="metadata">
-<a href="./posts/2026/08/ServiceCharge-Analysis/Index.html" class="no-external">
-<div class="listing-date">
-Aug 29, 2026
-</div>
-<div class="listing-author">
-Peter Harrad
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="cGVyc3Vhc2lvbiUyQ3N0YWtlaG9sZGVyJTIwbWFuYWdlbWVudCUyQ2Jsb2NrJTIwbWFuYWdlbWVudCUyQ3JlZ3VsYXRvcnk=" data-listing-date-sort="1787439600000" data-listing-file-modified-sort="1788016814489" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1968">
-<div class="thumbnail"><a href="./posts/2026/08/RH-RTMEffort/index.html" class="no-external">
+</section>
+<section id="what-i-wished-id-done" class="level2">
+<h2 class="anchored" data-anchor-id="what-i-wished-id-done">What I wished I’d done</h2>
+<p>I should have identified and recruited directors much earlier in the process. As it is, it sometimes feels like my fellow directors are only now finding their feet with the claim already accepted.</p>
+<p>I also should have anticipated the tensions between certain leaseholders and worked to pre-handle them. The concerns raised could have been anticipated.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>A presales or business transformation effort requires the ability to craft an argument, reach stakeholders, manage stakeholders and navigate process and regulatory landscapes. All of these came to play in this effort. Going from 12 initial supporters to 66 needed a combination of cold approach, and networking - but just as in business, referrals win out every time. Looking to prehandle stakeholder objections was the right call, even if I failed to anticipate a key one - at the very least, the patterns put in place brought enough credibility to ride out that objection. Identifying the right suppliers with a traceable set of decisions also built trust. Last of all, simply being able to comprehend the process and describe it intelligently meant that the necessary notices did not provoke panic when they landed in leaseholders’ mailboxes.</p>
 
-<img loading="lazy" src="./posts/2026/08/RH-RTMEffort/supporters-bars.png" class="thumbnail-image">
 
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2026/08/RH-RTMEffort/index.html" class="no-external">Right To Manage - business transformation at my apartment block</a>
-</h3>
-<div class="listing-categories">
+</section>
 
-<div class="listing-category" onclick="window.quartoListingCategory('cGVyc3Vhc2lvbg=='); return false;">persuasion</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3Rha2Vob2xkZXIlMjBtYW5hZ2VtZW50'); return false;">stakeholder management</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('YmxvY2slMjBtYW5hZ2VtZW50'); return false;">block management</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cmVndWxhdG9yeQ=='); return false;">regulatory</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/2026/08/RH-RTMEffort/index.html" class="no-external">
-<p>How I got 86% of leaseholders in a 77-flat buy-to-let block to back a Right to Manage claim — and why it was a stakeholder management problem.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/2026/08/RH-RTMEffort/index.html" class="no-external">
-<div class="listing-date">
-Aug 23, 2026
-</div>
-<div class="listing-author">
-Peter Harrad
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

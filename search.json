@@ -1,56 +1,56 @@
 [
   {
-    "objectID": "posts/ServiceCharge-Analysis/Index.html",
-    "href": "posts/ServiceCharge-Analysis/Index.html",
+    "objectID": "posts/2026/08/ServiceCharge-Analysis/Index.html",
+    "href": "posts/2026/08/ServiceCharge-Analysis/Index.html",
     "title": "A deep dive into service charge history",
     "section": "",
     "text": "As described in my previous post, I spent most of H1 2026 leading a Right To Manage effort for my apartment block. Now we directors need to start understanding the service charge - the history, the components and the areas to be wary of. I’ve used tools like pandas and Jupyter notebooks before, but I thought it would be interesting to see how Claude Code would do on such a task. Supporting files are here\nThe exploration was useful in giving areas for us to look at, but also exposed some intriguing pitfalls of using AI for this kind of work.\n\nKey points:\n\nDon’t trust the AI to find the right data without guidance\nAn AI-written redaction script leaked the names it was redacting — in a comment, a variable name, and an array literal\nLexical analysis is vulnerable to repeated text and small corpora of text\nExpect a single request to provide a lot of analysis - be wary of it pushing you in a particular direction\nJupyter throws lots of graphs at you, the Claude Code interface throws lots of commentary at you. So what you need should guide the tool"
   },
   {
-    "objectID": "posts/ServiceCharge-Analysis/Index.html#introduction",
-    "href": "posts/ServiceCharge-Analysis/Index.html#introduction",
+    "objectID": "posts/2026/08/ServiceCharge-Analysis/Index.html#introduction",
+    "href": "posts/2026/08/ServiceCharge-Analysis/Index.html#introduction",
     "title": "A deep dive into service charge history",
     "section": "",
     "text": "As described in my previous post, I spent most of H1 2026 leading a Right To Manage effort for my apartment block. Now we directors need to start understanding the service charge - the history, the components and the areas to be wary of. I’ve used tools like pandas and Jupyter notebooks before, but I thought it would be interesting to see how Claude Code would do on such a task. Supporting files are here\nThe exploration was useful in giving areas for us to look at, but also exposed some intriguing pitfalls of using AI for this kind of work.\n\nKey points:\n\nDon’t trust the AI to find the right data without guidance\nAn AI-written redaction script leaked the names it was redacting — in a comment, a variable name, and an array literal\nLexical analysis is vulnerable to repeated text and small corpora of text\nExpect a single request to provide a lot of analysis - be wary of it pushing you in a particular direction\nJupyter throws lots of graphs at you, the Claude Code interface throws lots of commentary at you. So what you need should guide the tool"
   },
   {
-    "objectID": "posts/ServiceCharge-Analysis/Index.html#getting-the-data",
-    "href": "posts/ServiceCharge-Analysis/Index.html#getting-the-data",
+    "objectID": "posts/2026/08/ServiceCharge-Analysis/Index.html#getting-the-data",
+    "href": "posts/2026/08/ServiceCharge-Analysis/Index.html#getting-the-data",
     "title": "A deep dive into service charge history",
     "section": "Getting the Data",
     "text": "Getting the Data\nI moved in 7 years ago, and had documents mostly covering that period. The first hiccup was that halfway through, our existing managing agent was bought by another company, with a different approach to presenting the accounts. The 2021 accounts were a bare ledger dump and there was no 2023 budget, so figures for those years come from the comparative columns of the following year’s accounts. The apparent change of agent is a rename rather than a handover — the same company throughout — so the comparatives are the same organisation restating its own figures, not a successor reconstructing a predecessor’s. Where I could check a comparative against the original, the carry-over was exact. All in all, I had actuals for 2019-2025, and budgets for 2020 and 2022-2026. It felt like this was enough to start with. The accounts and budgets from 2024 also had commentaries, which opened the door to some extra analysis - to be discussed later."
   },
   {
-    "objectID": "posts/ServiceCharge-Analysis/Index.html#getting-the-financial-data",
-    "href": "posts/ServiceCharge-Analysis/Index.html#getting-the-financial-data",
+    "objectID": "posts/2026/08/ServiceCharge-Analysis/Index.html#getting-the-financial-data",
+    "href": "posts/2026/08/ServiceCharge-Analysis/Index.html#getting-the-financial-data",
     "title": "A deep dive into service charge history",
     "section": "Getting the financial data",
     "text": "Getting the financial data\nThe early accounts to 2022 were scanned images. To start, I simply instructed Claude to extract the P&L for each year, from each file. Claude did an excellent job (zero transcription errors), but was most apologetic - explaining that the scanned files didn’t separate out P&L into the different budget schedules that the block had. Which, on checking, turned out to be complete rubbish. Lesson - don’t just check the figures that AI brings you, check if it simply didn’t read far enough in the document. Fixed by rerunning the command but specifying the precise pages in the scanned document to look at.\nThe next issue was that the two sets of accounts had slightly different categories - e.g. the old one separated out insurance types, the new one aggregated them. Decision: the newer agent was the more pertinent data, so I had the AI aggregate the older data accordingly.\nLesson learned: check the data that AI extracts, but also check availability, despite what the AI tells you."
   },
   {
-    "objectID": "posts/ServiceCharge-Analysis/Index.html#cleansing-the-commentary",
-    "href": "posts/ServiceCharge-Analysis/Index.html#cleansing-the-commentary",
+    "objectID": "posts/2026/08/ServiceCharge-Analysis/Index.html#cleansing-the-commentary",
+    "href": "posts/2026/08/ServiceCharge-Analysis/Index.html#cleansing-the-commentary",
     "title": "A deep dive into service charge history",
     "section": "Cleansing the commentary",
     "text": "Cleansing the commentary\nWith a post like this, it’s natural that I might be expected to share the source data. Which means that I needed to be aware of confidentiality. In particular, where people’s names and contact details were shown, as well as specific quotes that contractors provided, these had to be redacted. There was also a question of whether anything in the commentary could be sensitive to the block itself.\nSo I had the AI create three scripts:\n\nredact_docx.py - a simple matching script to remove names and contact information. No reason to feed spammers.\nscore_sensitivity.py - a heuristic to score each line on potential sensitivity based on what it discussed and produce a file for me to inspect\nsanitise_docx.py - a script to clean out any contractual figures and remove any lines that the sensitive line analysis had thrown up\n\nSimple enough, no? And if I hadn’t intended to share the scripts it would have been fine.\nredact_docx.py helpfully listed the names and details for it to redact in the comments that had been generated at the top, and then listed the names in an array. Meanwhile, after I asked for sanitise_docx to remove a specific line that related to security, it had helpfully explained this removal in the comments and the code to do so was helpfully named in way that made it clear what information was being removed. Oops. So a couple of quick manual edits were in order. In practice, the time taken was probably equal to redacting the information manually… but this was useful learning for a future project that I’ll be writing about.\nLesson learned (or, rather, reinforced): Check the scripts that AI generates, not just the outputs. In retrospect, I should have explicitly told it to obfuscate the names of the relevant variables and functions."
   },
   {
-    "objectID": "posts/ServiceCharge-Analysis/Index.html#financial-analysis",
-    "href": "posts/ServiceCharge-Analysis/Index.html#financial-analysis",
+    "objectID": "posts/2026/08/ServiceCharge-Analysis/Index.html#financial-analysis",
+    "href": "posts/2026/08/ServiceCharge-Analysis/Index.html#financial-analysis",
     "title": "A deep dive into service charge history",
     "section": "Financial Analysis",
     "text": "Financial Analysis\nTwo questions stood out for me in the service charge - which areas had the greatest growth, and which areas showed the greatest variance of actual versus budget?\nAsking about growth areas produced an impressive set of graphs, with two standing out as particularly useful. As shown below, general maintenance, electricity, and plant and machinery all stand out as significant items and topics that the directors need to dig into. It’s noticeable that reserve contributions are incredibly volatile - it seems like both agents used it as a smoothing function for the budget totals.\n\n\n\n\n\n\n\n\nHeatmap of items\n\n\n\n\n\n\n\nLine item of key categories\n\n\n\n\n\n\nFigure 1: Two graphs showing the same culprits for service charge growth\n\n\n\nVariance tells a similar story. It seems clear that maintenance is not only one of the biggest contributors to service charge growth, but also one of the most unanticipated\n\n\n\nIdentifying the key areas of variance"
   },
   {
-    "objectID": "posts/ServiceCharge-Analysis/Index.html#commentary-analysis",
-    "href": "posts/ServiceCharge-Analysis/Index.html#commentary-analysis",
+    "objectID": "posts/2026/08/ServiceCharge-Analysis/Index.html#commentary-analysis",
+    "href": "posts/2026/08/ServiceCharge-Analysis/Index.html#commentary-analysis",
     "title": "A deep dive into service charge history",
     "section": "Commentary Analysis",
     "text": "Commentary Analysis\nLikewise, there were two areas that interested me in the commentary. Specifically, did the commentaries tend to claim success or failure on specific topics, and did the language become more handwavy and evasive for the same topics. As an experiment, I decided to perform this via the Claude Code interface, not the Jupyter notebook.\nFor the analysis of claimed success and failure, the commentary is negative 6 times more often than it’s positive - perhaps understandable when trying to justify spiralling service charges. What’s more interesting is the topic breakdown: Insurance is the most consistently negative presentation, while energy costs are presented as a relative success.\n\n\n\nTopic\nParas\nOptimism score\n\n\n\n\nInsurance\n10\n-2.94\n\n\nReserve fund\n8\n-1.75\n\n\nWater & pumps\n5\n-1.40\n\n\nFire safety\n22\n-1.25\n\n\nAudit & accounting\n8\n+0.75\n\n\nElectricity & energy\n19\n+0.25\n\n\n\nMore interesting was the evasive language analysis. A simple lexical analysis script produced the following, rather questionable results. Boilerplate and FAQ scored second in the list - and the top category only covered 58 words. Time for a rethink.\n\n\n\nTopic\nParagraphs\nWords\nTerms\nEvasiveness\n\n\n\n\nGeneral maintenance\n6\n58\n3\n5.2\n\n\nBoilerplate FAQ\n25\n309\n15\n4.9\n\n\nSecurity & access\n4\n155\n7\n4.5\n\n\nMajor works\n7\n185\n8\n4.3\n\n\nAudit & accounting\n8\n269\n11\n4.1\n\n\nElectricity & energy\n19\n948\n39\n4.1\n\n\nReserve fund\n8\n440\n17\n3.9\n\n\nLifts\n9\n401\n15\n3.7\n\n\nCorrespondence & reassurance\n28\n604\n22\n3.6\n\n\nFire safety\n22\n1,155\n40\n3.5\n\n\nWater & pumps\n5\n243\n8\n3.3\n\n\nInsurance\n10\n572\n18\n3.1\n\n\nCar park & undercroft\n2\n38\n1\n2.6\n\n\nCleaning\n5\n246\n5\n2.0\n\n\nGrounds & landscaping\n2\n102\n2\n2.0\n\n\nManagement fee\n4\n58\n1\n1.7\n\n\nService charge level\n10\n225\n2\n0.9\n\n\nBilling & payment\n23\n1,344\n11\n0.8\n\n\n\nA quick examination showed that the boilerplate was repeated across all five files, biasing the result. Likewise, the single comment on general maintenance scores highly - but could just be due to chance.\nRebuilding the measure to deduplicate repeated text and drop thinly-populated topics moved boilerplate FAQ from second place to ninth, below almost every substantive topic — the original score was largely an artefact of the same standard passages recurring each year. On the cleaned figures electricity and energy tops the table at 3.8, with lifts and water and pumps also high; all of which show significant budget variance in the financial analysis. General maintenance and major works disappear from the analysis, which in some ways is telling - large areas of spend were simply skirted over.\n\n\n\nTopic\nParagraphs\nWords\nTerms\nEvasiveness\n\n\n\n\nElectricity & energy\n17\n869\n33\n3.8\n\n\nCorrespondence & reassurance\n14\n332\n12\n3.6\n\n\nLifts\n8\n358\n13\n3.6\n\n\nFire safety\n17\n909\n31\n3.4\n\n\nWater & pumps\n5\n243\n8\n3.3\n\n\nBilling & payment\n4\n190\n6\n3.2\n\n\nReserve fund\n5\n254\n8\n3.1\n\n\nInsurance\n5\n308\n8\n2.6\n\n\nBoilerplate FAQ\n12\n699\n16\n2.3\n\n\nCleaning\n4\n211\n4\n1.9\n\n\nUnclassified\n19\n171\n1\n0.6"
   },
   {
-    "objectID": "posts/ServiceCharge-Analysis/Index.html#conclusions",
-    "href": "posts/ServiceCharge-Analysis/Index.html#conclusions",
+    "objectID": "posts/2026/08/ServiceCharge-Analysis/Index.html#conclusions",
+    "href": "posts/2026/08/ServiceCharge-Analysis/Index.html#conclusions",
     "title": "A deep dive into service charge history",
     "section": "Conclusions",
     "text": "Conclusions\nThe analysis has highlighted some important areas for us to focus on. We need to dig into the electricity and understand what’s driving the growth and unpredictability. The repeated unexpected variance in maintenance highlights that an attempt to understand expected lifetimes of different systems is long overdue.\nSome other useful lessons fall out for future analysis using these tools.\nIt’s often said that you should treat AI like an intern whose work needs to be thoroughly checked. Two examples came up in this effort. The AI did an excellent job at extracting data from the image files… yet needed to be told which page to look at. At the same time, the redaction scripts smoothly removed sensitive data - while exposing it in the source code. I’ve read that models are trained to write clear, self-documenting code — but this pushes in the opposite direction to confidentiality.\nA more subtle point is the initial problems with the evasive language. What could be a useful metric was initially badly biased due to repeated text and small sample size.\nA fourth point stands out - the tendency of Claude Code to attempt to use its initiative. Ask for a matrix of evasive words in the commentary by topic, and you get an entire essay opining on the results. Ask the Jupyter notebook to analyse variance of budget v actual, and get a swathe of tables and graphs. Not a problem, but a subtle trap to be wary of when using AI for this kind of work - the specific outputs can end up guiding you down a path instead of you guiding the outputs. Last of all, while this happens whether working via the Jupyter notebook or the Claude Code interface, it manifests in different ways due to the different constraints of the two interfaces. The Jupyter notebook throws a bunch of tables and graphs at you, while the Claude Code interface waxes lyrical with commentary."
@@ -70,78 +70,78 @@
     "text": "About\nI’m Peter Harrad. For about thirty years I’ve worked in the space between technical systems and the people who depend on them — as a solutions architect, a presales consultant, and most recently as a senior business analyst at G-Research, where I designed root cause analysis and policy frameworks and led the operational risk work for the firm’s move into options trading. Before that I built out the North American arm of an enterprise architecture software vendor, and spent several years consulting on process and architecture for clients across financial services and government.\nThe common thread is finding out what’s actually going on. Usually that means asking a question nobody has quite asked in that form before, then going and getting the evidence rather than assuming the answer.\nThis blog is where that instinct gets pointed at things outside work. Council spending data. Leasehold service charge accounts. Tribunal decisions. Correspondence archives. Some of it is civic — I’m a director of the Right to Manage company for my building, so I have a stake in a few of these questions and I say so where it’s relevant. Some of it is professional, working through cybersecurity and detection tooling as I go. Occasionally it’s just something I got curious about.\nThe name is borrowed from incident analysis, where the honest finding is usually not a single root cause but a set of contributing factors that had to line up. That’s how most of the things I write about here turn out too.\nCode for these posts is on GitHub. I’m on LinkedIn."
   },
   {
-    "objectID": "posts/RH-RTMEffort/index.html",
-    "href": "posts/RH-RTMEffort/index.html",
+    "objectID": "posts/2026/08/RH-RTMEffort/index.html",
+    "href": "posts/2026/08/RH-RTMEffort/index.html",
     "title": "Right To Manage - business transformation at my apartment block",
     "section": "",
     "text": "Harry Scoffin, the founder of Free Leaseholders, recently told a Housing Committee hearing that getting 50% of leaseholders in a large buy-to-let block to agree on anything is almost impossible. We got 86%, with nobody against. So I wanted to share how I rallied a coalition of mostly absentee landlords to exceed this figure so clearly, to take control of the block and rescue my equity - and how doing so ended up using a lot of the skills from past roles in presales and business transformation.\nLate last year, I discovered that my apartment would be almost unsellable, as it was now one of the estimated 37% of flats in the UK whose service charge now exceeds 1% of the property’s value — the point at which lenders start refusing mortgages. When leaseholders of such properties have to sell, they are forced to sell at cash auction for a substantial discount. This was unacceptable.\nSo I decided to rally the other leaseholders to obtain Right to Manage - the legal right of a block of flats in this country to demand control of the management of the block. I had to forge a group of mostly remote leaseholders (some with a level of adversarial history) into a unified community, and keep it together while navigating a complex regulatory framework with a counterparty that had an inbuilt incentive to resist our efforts."
   },
   {
-    "objectID": "posts/RH-RTMEffort/index.html#introduction",
-    "href": "posts/RH-RTMEffort/index.html#introduction",
+    "objectID": "posts/2026/08/RH-RTMEffort/index.html#introduction",
+    "href": "posts/2026/08/RH-RTMEffort/index.html#introduction",
     "title": "Right To Manage - business transformation at my apartment block",
     "section": "",
     "text": "Harry Scoffin, the founder of Free Leaseholders, recently told a Housing Committee hearing that getting 50% of leaseholders in a large buy-to-let block to agree on anything is almost impossible. We got 86%, with nobody against. So I wanted to share how I rallied a coalition of mostly absentee landlords to exceed this figure so clearly, to take control of the block and rescue my equity - and how doing so ended up using a lot of the skills from past roles in presales and business transformation.\nLate last year, I discovered that my apartment would be almost unsellable, as it was now one of the estimated 37% of flats in the UK whose service charge now exceeds 1% of the property’s value — the point at which lenders start refusing mortgages. When leaseholders of such properties have to sell, they are forced to sell at cash auction for a substantial discount. This was unacceptable.\nSo I decided to rally the other leaseholders to obtain Right to Manage - the legal right of a block of flats in this country to demand control of the management of the block. I had to forge a group of mostly remote leaseholders (some with a level of adversarial history) into a unified community, and keep it together while navigating a complex regulatory framework with a counterparty that had an inbuilt incentive to resist our efforts."
   },
   {
-    "objectID": "posts/RH-RTMEffort/index.html#building-the-base-of-support",
-    "href": "posts/RH-RTMEffort/index.html#building-the-base-of-support",
+    "objectID": "posts/2026/08/RH-RTMEffort/index.html#building-the-base-of-support",
+    "href": "posts/2026/08/RH-RTMEffort/index.html#building-the-base-of-support",
     "title": "Right To Manage - business transformation at my apartment block",
     "section": "Building the base of support",
     "text": "Building the base of support\nWe needed the support of 39 units - at least 50% of the block had to be members of the RTM Company before we could claim. The immediate problem that we faced, was how to contact and get in touch with a group of leaseholders who did not live in the block, and whose contact details were unknown. From the start I decided against asking the incumbent managing agent - there was essentially no chance that they would help, and tipping them off might cause them to start their own campaign to undermine ours. To start with, I used my existing network. There was already a small community of resident leaseholders held together via an email group and a WhatsApp group. I’d personally managed to add several people to this community by actively engaging with unknown residents - purely because you never know when a connection might be mutually beneficial.\nThis gave us a starter group of 12 - with 39 needed and ideally up to a dozen more. My working assumption was to treat the remaining units as rented out. Now, one option for the next step might have been to download the titles for the remaining units, and write to the registered addresses.\nI chose not to do this as the next step for several reasons:\n\nThe title registers cost £7 a time\nPeople often forget to update their contact details on title registers when they move, and a look at property sales data showed that the majority of the units had not changed hands in 20 years\nLetters are common and what with junkmail, the inclination is to dismiss an unexpected letter - “how can I get rid of this?”. A mailshot, personally signed by another resident, stands out\nLandlords are often in touch with their tenants and some even have cordial relations in place\n\nSo instead, I chose to do a personal mailshot - printing out 65 leaflets to place in each mailbox."
   },
   {
-    "objectID": "posts/RH-RTMEffort/index.html#selling-with-the-mailshot",
-    "href": "posts/RH-RTMEffort/index.html#selling-with-the-mailshot",
+    "objectID": "posts/2026/08/RH-RTMEffort/index.html#selling-with-the-mailshot",
+    "href": "posts/2026/08/RH-RTMEffort/index.html#selling-with-the-mailshot",
     "title": "Right To Manage - business transformation at my apartment block",
     "section": "Selling with the mailshot",
     "text": "Selling with the mailshot\nThe mailshot was essentially a sales pitch - as a tenant, why should you care, and why should your landlord care? In a case like this, you need a few carefully chosen talking points. Too many, and it feels like some hard-sell sales pitch on late night television. Too few, and you fail to persuade.\nSo I chose to make the following talking points:\n\nIf you are a tenant, rising service charges put financial pressure on your landlord to raise rents. Meanwhile, problems external to the flat are not fixed, affecting your quality of life\nIf you are a landlord, the value of your investment is being slowly eaten away\n\nAnd on each leaflet was a request to pass on my contact details to the owner of the property.\n65 leaflets went out; over the course of a month, 13 new contacts reached out and stated their support for the effort. With something like this, you have to accept that some people will be slow to respond.\n25 supporters, 39 needed."
   },
   {
-    "objectID": "posts/RH-RTMEffort/index.html#moving-on-to-referrals",
-    "href": "posts/RH-RTMEffort/index.html#moving-on-to-referrals",
+    "objectID": "posts/2026/08/RH-RTMEffort/index.html#moving-on-to-referrals",
+    "href": "posts/2026/08/RH-RTMEffort/index.html#moving-on-to-referrals",
     "title": "Right To Manage - business transformation at my apartment block",
     "section": "Moving on to referrals",
     "text": "Moving on to referrals\nSome people are natural connectors, and if you can convince them of your case, they will put you in touch with other potential supporters or sources of contacts. This effort proved no different. Two of the landlords had lists of other leaseholders from previous efforts to rally the community. 21 more supporters stated their support. 46 supporters with 39 needed. But ideally we wanted more.\nAnother leaseholder was in contact with the director of the lettings agent who handled most of the lettings in the block - passed my details, they called me and after I convinced them of the cause, they contacted all their landlords that I was not in touch with. 12 more supporters - 58 total, with 39 needed.\n8 more were to join us over the coming months, but we had enough at this point.\n\n\n\nWhere the support actually came from"
   },
   {
-    "objectID": "posts/RH-RTMEffort/index.html#establishing-stakeholder-credibility",
-    "href": "posts/RH-RTMEffort/index.html#establishing-stakeholder-credibility",
+    "objectID": "posts/2026/08/RH-RTMEffort/index.html#establishing-stakeholder-credibility",
+    "href": "posts/2026/08/RH-RTMEffort/index.html#establishing-stakeholder-credibility",
     "title": "Right To Manage - business transformation at my apartment block",
     "section": "Establishing stakeholder credibility",
     "text": "Establishing stakeholder credibility\nAt this point, we had commitments from enough leaseholders and questions of stakeholder management came to the fore. There were two specific groups to consider.\nThe first and most important stakeholder was the part-time caretaker. While not living on site, they knew a lot of what went on at the block, and it was only a matter of time before they heard about the effort and started questioning what it would mean for them. So I sat down with them and explained very carefully what we planned and how it would actually empower them. I took care to visit them regularly and update them on progress.\nThe second stakeholder management question was how to keep the support of the group of supporters that I’d rallied. For historical reasons, certain leaseholders were deeply suspicious of each other, and I needed to avoid being seen to take sides.\nI foresaw two separate problems:\n\nHaving gained support, I needed to keep it until the claim went in. In particular, I needed to build up trust for when it came time to join the company\nThey might be concerned that I was making decisions to benefit myself to their own detriment\n\nEach required its own separate strategy.\nTo keep people invested, I sent out regular email newsletters, explaining progress and what the next steps would be.\nTo avoid the suspicion of this being my one-man feathering of the nest, I established an advisory committee made up of volunteers to act as a sounding board, with its own separate email and WhatsApp groups.\nThis immediately provoked a challenge from a couple of leaseholders, who while unwilling to join this group felt that one who had would subvert the effort in order to reintroduce short-term letting in violation of the lease. I found myself spending significant time reassuring them that I was not inclined to allow this and in fact would have a statutory duty to enforce the lease provisions."
   },
   {
-    "objectID": "posts/RH-RTMEffort/index.html#calling-in-a-professional",
-    "href": "posts/RH-RTMEffort/index.html#calling-in-a-professional",
+    "objectID": "posts/2026/08/RH-RTMEffort/index.html#calling-in-a-professional",
+    "href": "posts/2026/08/RH-RTMEffort/index.html#calling-in-a-professional",
     "title": "Right To Manage - business transformation at my apartment block",
     "section": "Calling in a professional",
     "text": "Calling in a professional\nSo now it was time to form the company and start the claim process. The RTM process is notoriously full of pitfalls, and if the freeholder or incumbent managing agent decides to challenge, working through the courts can take years. You have to invite all leaseholders to join the company; get a single thing wrong and the claim is invalid. You have to notify all parties, and if you get anything wrong, the claim is invalid. And then the freeholder can demand a mountain of background paperwork, and if there are any discrepancies or errors, the claim is invalid. With all these pitfalls, we felt it was necessary to engage advisors. There are a range of companies that will help you through the RTM process, charging a wide range of fees.\nWe considered the key factors; the desire to ensure success so that we could immediately start work on reducing the service charge, and the fact that service charges were already in the mid 4-figures for most leaseholders. Given these, we engaged Shula Rich, one of the most recognised names in RTM advice provision. A key decision criterion was her stated approach of merely amending claims that were rejected for trivial reasons and resubmitting. This significantly reduced the risk of needing a lengthy and expensive challenge at the First Tier Tribunal, the section of the courts that deals with such disputes."
   },
   {
-    "objectID": "posts/RH-RTMEffort/index.html#choosing-the-replacement",
-    "href": "posts/RH-RTMEffort/index.html#choosing-the-replacement",
+    "objectID": "posts/2026/08/RH-RTMEffort/index.html#choosing-the-replacement",
+    "href": "posts/2026/08/RH-RTMEffort/index.html#choosing-the-replacement",
     "title": "Right To Manage - business transformation at my apartment block",
     "section": "Choosing the replacement",
     "text": "Choosing the replacement\nAt the same time, we needed to choose a replacement managing agent. Some RTM efforts manage the block themselves, but for us, a 77-flat riverside block with 4 entrances and a caretaker needed a professional company.\nWe created an ITT and sent it to a number of candidate companies after a couple of review iterations with the advisory committee. We then had each member of the advisory committee score the companies across five weighted categories, creating a shortlist of three. Detailed examinations and follow up questions produced a front runner, who we eventually engaged to take over. As with our advisor, their stated experience in taking over from the incumbent was a key factor."
   },
   {
-    "objectID": "posts/RH-RTMEffort/index.html#the-outcome",
-    "href": "posts/RH-RTMEffort/index.html#the-outcome",
+    "objectID": "posts/2026/08/RH-RTMEffort/index.html#the-outcome",
+    "href": "posts/2026/08/RH-RTMEffort/index.html#the-outcome",
     "title": "Right To Manage - business transformation at my apartment block",
     "section": "The outcome",
     "text": "The outcome\nThe claim was posted on the 4th of June. What with a weekend, deemed delivery was the 9th of June. The RTM regulations stated that the counterparties had a month to respond, so once we factored in another weekend and some leeway, we agreed a cutoff for response of the 13th of July. Again driven by the RTM regulations, the handover can only happen a minimum of 3 months after the response deadline. I chose to move it from Tuesday to Wednesday (to leave two clear working days between the weekends), so - the 14th of October.\nAs expected, the freeholder immediately responded with a request for evidence - we had to hand over no less than 79 pages of documentation for them to pick through for discrepancies. On the 8th of July, the freeholder sent over their formal acceptance of the claim. Contrary to anecdote, they were highly professional at every step.\nHow much will the service charge come down by? We’ll know once we have the new budget in place, but the consensus is that RTM cuts charges from 10% to 30% or even much more. A highly comparable block has roughly half the service charge levels.\n\n\n\nThe final tally of supporters, floor by floor. Green is a leaseholder in favour: 66 of 77, against the 39 required."
   },
   {
-    "objectID": "posts/RH-RTMEffort/index.html#what-i-wished-id-done",
-    "href": "posts/RH-RTMEffort/index.html#what-i-wished-id-done",
+    "objectID": "posts/2026/08/RH-RTMEffort/index.html#what-i-wished-id-done",
+    "href": "posts/2026/08/RH-RTMEffort/index.html#what-i-wished-id-done",
     "title": "Right To Manage - business transformation at my apartment block",
     "section": "What I wished I’d done",
     "text": "What I wished I’d done\nI should have identified and recruited directors much earlier in the process. As it is, it sometimes feels like my fellow directors are only now finding their feet with the claim already accepted.\nI also should have anticipated the tensions between certain leaseholders and worked to pre-handle them. The concerns raised could have been anticipated."
   },
   {
-    "objectID": "posts/RH-RTMEffort/index.html#conclusion",
-    "href": "posts/RH-RTMEffort/index.html#conclusion",
+    "objectID": "posts/2026/08/RH-RTMEffort/index.html#conclusion",
+    "href": "posts/2026/08/RH-RTMEffort/index.html#conclusion",
     "title": "Right To Manage - business transformation at my apartment block",
     "section": "Conclusion",
     "text": "Conclusion\nA presales or business transformation effort requires the ability to craft an argument, reach stakeholders, manage stakeholders and navigate process and regulatory landscapes. All of these came to play in this effort. Going from 12 initial supporters to 66 needed a combination of cold approach, and networking - but just as in business, referrals win out every time. Looking to prehandle stakeholder objections was the right call, even if I failed to anticipate a key one - at the very least, the patterns put in place brought enough credibility to ride out that objection. Identifying the right suppliers with a traceable set of decisions also built trust. Last of all, simply being able to comprehend the process and describe it intelligently meant that the necessary notices did not provoke panic when they landed in leaseholders’ mailboxes."

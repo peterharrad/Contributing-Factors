@@ -14,7 +14,7 @@
 <item>
   <title>A deep dive into service charge history</title>
   <dc:creator>Peter Harrad</dc:creator>
-  <link>https://harrad.org/posts/ServiceCharge-Analysis/Index.html</link>
+  <link>https://harrad.org/posts/2026/08/ServiceCharge-Analysis/Index.html</link>
   <description><![CDATA[ 
 
 
@@ -23,7 +23,7 @@
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>As described in my previous post, I spent most of H1 2026 leading a Right To Manage effort for my apartment block. Now we directors need to start understanding the service charge - the history, the components and the areas to be wary of. I’ve used tools like pandas and Jupyter notebooks before, but I thought it would be interesting to see how Claude Code would do on such a task. Supporting files are <a href="https://github.com/peterharrad/Service-Charge">here</a></p>
+<p>As described in my <a href="https://peterharrad.github.io/Contributing-Factors/posts/2026/08/RH-RTMEffort/">previous post</a>, I spent most of H1 2026 leading a Right To Manage effort for my apartment block. Now we directors need to start understanding the service charge - the history, the components and the areas to be wary of. I’ve used tools like pandas and Jupyter notebooks before, but I thought it would be interesting to see how Claude Code would do on such a task. Supporting files are <a href="https://github.com/peterharrad/Service-Charge">here</a></p>
 <p>The exploration was useful in giving areas for us to look at, but also exposed some intriguing pitfalls of using AI for this kind of work.</p>
 <ul>
 <li>Key points:
@@ -70,7 +70,7 @@
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://harrad.org/posts/ServiceCharge-Analysis/BudgetGrowth.png" class="img-fluid figure-img"></p>
+<p><img src="https://harrad.org/posts/2026/08/ServiceCharge-Analysis/BudgetGrowth.png" class="img-fluid figure-img"></p>
 <figcaption>Heatmap of items</figcaption>
 </figure>
 </div>
@@ -78,7 +78,7 @@
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://harrad.org/posts/ServiceCharge-Analysis/chart-expenditure-by-category.png" class="img-fluid figure-img"></p>
+<p><img src="https://harrad.org/posts/2026/08/ServiceCharge-Analysis/chart-expenditure-by-category.png" class="img-fluid figure-img"></p>
 <figcaption>Line item of key categories</figcaption>
 </figure>
 </div>
@@ -93,7 +93,7 @@ Figure&nbsp;1: Two graphs showing the same culprits for service charge growth
 <p>Variance tells a similar story. It seems clear that maintenance is not only one of the biggest contributors to service charge growth, but also one of the most unanticipated</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://harrad.org/posts/ServiceCharge-Analysis/chart-bias-vs-volatility.png" class="img-fluid figure-img"></p>
+<p><img src="https://harrad.org/posts/2026/08/ServiceCharge-Analysis/chart-bias-vs-volatility.png" class="img-fluid figure-img"></p>
 <figcaption>Identifying the key areas of variance</figcaption>
 </figure>
 </div>
@@ -391,14 +391,14 @@ Figure&nbsp;1: Two graphs showing the same culprits for service charge growth
   <category>data analysis</category>
   <category>using AI</category>
   <category>block management</category>
-  <guid>https://harrad.org/posts/ServiceCharge-Analysis/Index.html</guid>
+  <guid>https://harrad.org/posts/2026/08/ServiceCharge-Analysis/Index.html</guid>
   <pubDate>Fri, 28 Aug 2026 23:00:00 GMT</pubDate>
-  <media:content url="https://harrad.org/posts/ServiceCharge-Analysis/chart-bias-vs-volatility.png" medium="image" type="image/png" height="101" width="144"/>
+  <media:content url="https://harrad.org/posts/2026/08/ServiceCharge-Analysis/chart-bias-vs-volatility.png" medium="image" type="image/png" height="101" width="144"/>
 </item>
 <item>
   <title>Right To Manage - business transformation at my apartment block</title>
   <dc:creator>Peter Harrad</dc:creator>
-  <link>https://harrad.org/posts/RH-RTMEffort/</link>
+  <link>https://harrad.org/posts/2026/08/RH-RTMEffort/</link>
   <description><![CDATA[ 
 
 
@@ -443,7 +443,7 @@ Figure&nbsp;1: Two graphs showing the same culprits for service charge growth
 <p>8 more were to join us over the coming months, but we had enough at this point.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://harrad.org/posts/RH-RTMEffort/supporters-bars.png" class="img-fluid figure-img"></p>
+<p><img src="https://harrad.org/posts/2026/08/RH-RTMEffort/supporters-bars.png" class="img-fluid figure-img"></p>
 <figcaption>Where the support actually came from</figcaption>
 </figure>
 </div>
@@ -480,7 +480,7 @@ Figure&nbsp;1: Two graphs showing the same culprits for service charge growth
 <p>How much will the service charge come down by? We’ll know once we have the new budget in place, but the consensus is that RTM cuts charges from 10% to 30% or even much more. A highly comparable block has roughly half the service charge levels.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://harrad.org/posts/RH-RTMEffort/status.png" class="img-fluid figure-img"></p>
+<p><img src="https://harrad.org/posts/2026/08/RH-RTMEffort/status.png" class="img-fluid figure-img"></p>
 <figcaption>The final tally of supporters, floor by floor. Green is a leaseholder in favour: 66 of 77, against the 39 required.</figcaption>
 </figure>
 </div>
@@ -502,9 +502,9 @@ Figure&nbsp;1: Two graphs showing the same culprits for service charge growth
   <category>stakeholder management</category>
   <category>block management</category>
   <category>regulatory</category>
-  <guid>https://harrad.org/posts/RH-RTMEffort/</guid>
+  <guid>https://harrad.org/posts/2026/08/RH-RTMEffort/</guid>
   <pubDate>Sat, 22 Aug 2026 23:00:00 GMT</pubDate>
-  <media:content url="https://harrad.org/posts/RH-RTMEffort/supporters-bars.png" medium="image" type="image/png" height="74" width="144"/>
+  <media:content url="https://harrad.org/posts/2026/08/RH-RTMEffort/supporters-bars.png" medium="image" type="image/png" height="74" width="144"/>
 </item>
 </channel>
 </rss>
