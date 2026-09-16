@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Peter Harrad">
-<meta name="dcterms.date" content="2026-09-03">
+<meta name="dcterms.date" content="2026-09-16">
 <meta name="description" content="Using Open Knowledge format so my fellow directors could maxmimise their use of LLMs running the block">
 
 <title>Creating an LLM input bundle for my fellow directors – Contributing-Factors</title>
@@ -106,12 +106,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://bsky.app/"> <i class="bi bi-bluesky" role="img">
+    <a class="nav-link" href="https://github.com/peterharrad"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -133,7 +128,6 @@ ul.task-list li input[type="checkbox"] {
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">data analysis</div>
                 <div class="quarto-category">using AI</div>
                 <div class="quarto-category">block management</div>
               </div>
@@ -153,7 +147,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">3 September 2026</p>
+        <p class="date">16 September 2026</p>
       </div>
     </div>
     
@@ -172,40 +166,16 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<!--#
-Directors (including me) are going to be using AI anyway
-    - So best make sure that they are using correct information
-    - Input files that can be fed into a vector store or directly into an LLM
-    - Caveat
-        - not a substitute for legal advice (specific meaning of language, precedents, etc)
-        - but can help in interacting with legal professionals, if it comes to that: highlight specific clauses
-Other considerations
-    - Include instructions
-    - Which files to ingest
-        - Highly static information that rarely changes 
-        - FRA and fire regulations not a good candidate
-Open Knowledge Format
-    - Allows tighter control of linkage and chunking
-    - As well as metadata
-Implementation
-    - What is a concept => What granularity of files. Different kinds of file
-    - Legal Documents
-        - Definitions page
-    - Sample = articles of association
-
-
-image: legal document structure
-
--->
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>One of the things that I grew used to while <a href="https://peterharrad.github.io/Contributing-Factors/posts/2026/08/RH-RTMEffort/">leading my block’s RTM effort</a> was the increasing tendency for other leaseholders to send me the output from an AI tool as their input. It’s inevitable, but that being the case, I decided to look into how I could equip my fellow directors (and myself) with the right AI outputs - meaning, referencing the lease and title documents and relevant legislation correctly, instead of risking hallucinations. Something like this cannot substitute for legal advice or human analysis, but I’ve accepted the use of AI as a given, and so it’s worth making sure that it is used effectively. This post talks about the choices made to select and process the information. The following post will talk about experiments with distributing the information via mechanisms such as Google gems, vector stores and so on.</p>
-<p>Key findings: - the major human value-add is understanding the structure of documents to guide the chunking - it’s worth evolving a simple taxonomy of documents to guide the processing definitions</p>
+<p>I suppose it was inevitable; having won our block’s <a href="https://peterharrad.github.io/Contributing-Factors/posts/2026/08/RH-RTMEffort/">RTM effort</a>, multiple leaseholders contacted me to ask if they still needed to pay their service charge demand from the outgoing agent in full. Now, I know the lease pretty well, but decided to test the question on a few LLMs into which I’d fed the lease. I was horrified to get numerous answers on the question that were just plain wrong. Pointing the LLM in question to the clause that they’d ignored usually provoked a correction (not always), but this convinced me of the need to enable more accurate querying and analysis of the lease and other important documents - for me and for my fellow directors. So this blog outlines my journey of transforming a bunch of mostly scanned PDFs into a fully structured resource with tagging.</p>
+<p>Key findings: - the major human value-add is understanding the macro structure of documents. AI is great at repeating tasks at scale, the holistic picture is something it struggles with - parallel to this is careful consideration on what to include - some information is just not appropriate to ingest - defining the guardrails in the instructions is critical. Having a set of test scenarios to iterate with ahead of time is how you check that they are working</p>
 </section>
 <section id="choosing-the-design" class="level2">
 <h2 class="anchored" data-anchor-id="choosing-the-design">Choosing the design</h2>
-<p>The first consideration was how to distribute the documents. I wanted an approach that could in theory be maintainable by others without requiring high technical skill. So, while I may well experiment with creating an MCP server or some Ollama-based solution, the intermediate output needed to be curated text files. I decided to try out Google’s new <a href="https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing">Open Knowledge Format</a> for this. The support for provenance, versioning combined with the flexibility seems an ideal fit for what will essentially be the LLM-Wiki for the block - and if the format doesn’t take off, the files are still just text that anyone can read, curate and possibly convert to another format.</p>
-<p>A second question was a decision on scope. Do I attempt to include analysis within the OKF bundle. The answer - no, this is an attempt to provide a information reference. No attempts at synthesis or guidance will be in scope for this effort.</p>
+<p>The first consideration was how to distribute the documents. At some point I’ll look into creating a full vector store and frontend, but initial investigations showed that this could easily turn into a very enjoyable and time-consuming diversion from more useful activities. So next I looked at ways to distribute it via a Claude Project or a Gemini Gem.</p>
+<p>The initial idea was to generate a bundle of concept files in line with Google’s new Open Knowledge Format (OKF), that we could have the Project/Gem reference. But it turns out that input files have to be uploaded by hand in such cases - OKF really seems designed for exclusive use by agents. NotebookLM can look at a folder… but has no threaded conversations. Every option for providing an encapsulated solution had its own limitations.</p>
+<p>So the eventual fallback was to provide single markdown files for each input document, albeit with each clause properly tagged using ideas borrowed from OKF. This gave me 10 files that I could share - within Gemini’s upload limit for gems. Then my colleagues could upload them into whatever tool they chose.</p>
 </section>
 <section id="what-to-ingest" class="level2">
 <h2 class="anchored" data-anchor-id="what-to-ingest">What to ingest</h2>
@@ -222,10 +192,17 @@ image: legal document structure
 <figcaption>Not amenable to detailed spatial reasoning</figcaption>
 </figure>
 </div>
-<p>I decided to exclude two types of information. First, documentation around building safety compliance - inspection results, regulations, and so on. Inspection results are transitory; the report comes, and remediations take place. Likewise, building regulations seem to be in constant flux at the moment, so since I did not want to adopt curating such information as an ongoing task, they had to be excluded from scope. Second was spatial information such as maps and title plans. The idea is to allow directors get accurate answers to their questions, and LLMs are currently limited in their spatial reasoning to support this. I decided to extract certain spatial information such as floor numbers for flats into a text file for accurate answers.</p>
+<p>I decided to exclude a few types of information.</p>
+<p>First, documentation around building safety compliance - inspection results, regulations, and so on. Inspection results are transitory; the report comes, and remediations take place. Likewise, building regulations seem to be in constant flux at the moment, so since I did not want to adopt curating such information as an ongoing task, they had to be excluded from scope.</p>
+<p>Second was spatial information such as maps and title plans. The idea is to allow directors to recieve accurate answers to their questions, and LLMs are currently limited in their spatial reasoning to support this. I decided to extract certain spatial information such as floor numbers for flats into a text file for accurate answers.</p>
+<p>Last of all, it was tempting to provide information on the history of each flat and leaseholder as I’ve been in the block the longest and have had the most interaction with the other leaseholders. But brief reflection showed what a data protection nightmare this could become.</p>
 </section>
-<section id="defining-the-document-ingestion---part-1" class="level2">
-<h2 class="anchored" data-anchor-id="defining-the-document-ingestion---part-1">Defining the document ingestion - part 1</h2>
+<section id="cleaning-the-documents" class="level2">
+<h2 class="anchored" data-anchor-id="cleaning-the-documents">Cleaning the documents</h2>
+<p>Before I could start ingesting, the files themselves needed cleanup. For the leases, I had a number of scanned PDFs. Our services agreement and the RICS code of conduct werer proper PDFs with text, and the titles were also PDFs of text. I used Claude Code to clean the files, which worked - mostly. There were small errors here and there, important for a legal document, so this highlights the need to check the outputs in such cases.</p>
+</section>
+<section id="defining-the-document-ingestion---contracts-and-guidelines" class="level2">
+<h2 class="anchored" data-anchor-id="defining-the-document-ingestion---contracts-and-guidelines">Defining the document ingestion - contracts and guidelines</h2>
 <p>The largest group of documents - Contractual Documents and regulations - have a fairly standardised structure. The first section contain definitions of specific terms used in the document. The rest of the document is divided into chapters, sections, different documents call them differently but each contains a number of paragraphs that may have sub clauses.</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
@@ -247,16 +224,16 @@ flowchart LR
   D3 --&gt; D31[Sub-Paragraph]
   D3 --&gt; D32[Sub-Paragraph]
   D3 --&gt; D33[Sub-Paragraph]
-
 </pre>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
+<p>There was a concern over ingesting the lease - was it the same for each unit? As a check, I obtained someone else’s lease and checked it against my own. Apart from some fascinating (but trivial) discrepancies in the scanning, the language was identical - giving me the confidence that I could use my lease as the reference.</p>
 </section>
-<section id="defining-the-document-ingestion---part-2" class="level2">
-<h2 class="anchored" data-anchor-id="defining-the-document-ingestion---part-2">Defining the document ingestion - part 2</h2>
+<section id="defining-the-document-ingestion---titles" class="level2">
+<h2 class="anchored" data-anchor-id="defining-the-document-ingestion---titles">Defining the document ingestion - titles</h2>
 <p>Title registers are the other type of document to ingest, and they are also pretty standard in their structure.</p>
 <ul>
 <li>Each has three sections:
@@ -267,17 +244,82 @@ flowchart LR
 </ul></li>
 </ul>
 <p>Each section is a list of numbered and dated entries.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'flowchart': {'rankSpacing': 90}}}%%
+flowchart LR
+  A[Title Register] --&gt; B[A. Property register]
+  A --&gt; C[B. Proprietorship register]
+  A --&gt; D[C. Charges register]
+  B --&gt; B1@{ shape: docs, label: "List of entries"}
+  C --&gt; C1@{ shape: docs, label: "List of entries"}
+  D --&gt; D1@{ shape: docs, label: "List of entries"}
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>This one had me thinking for a long time. Arguably each separate entry is its own concept. But a given entry often does not give much information. For example:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Entry</th>
+<th>Date</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>4</td>
+<td>2002-06-18</td>
+<td>An Agreement dated 2 May 2002 pursuant to Section 106 of the Town and Country Planning Act 1990 and Section 111 of the Local Government Act 1972 made between (1) Reading Borough Council and (2) Bewley Homes PLC supplemental to the Agreement dated 28 February 2000 referred to above contains provisions relating to the development of the land in this title and other land.<br>The said Deed also contains covenants.<br>NOTE: Copy filed under BK122099.</td>
+</tr>
+</tbody>
+</table>
+<p>This being the case, all that the AI could do is list an entry. I decided to treat each section as a concept for the purposes of OKF.</p>
 </section>
-<section id="handling-leglislation" class="level2">
-<h2 class="anchored" data-anchor-id="handling-leglislation">Handling Leglislation</h2>
-<p>In theory I could ingest various relevant legislation, but in practice the UK government is excellent at making legislation available online. For example, here is the <a href="https://www.legislation.gov.uk/ukpga/2002/15/part/2/chapter/1">legislation defining the right to manage</a>. The key thing to be wary of to use the current version of any act or statutory instrument, as they do get amended over time - the current template articles of association for an RTM company have gone through 4 iterations. The other caveat here then, is the need to be awareness of freshness and provenance.</p>
+<section id="defining-the-document-ingestion---legislation" class="level2">
+<h2 class="anchored" data-anchor-id="defining-the-document-ingestion---legislation">Defining the document ingestion - Legislation</h2>
+<p>In theory I could ingest various relevant legislation, but in practice the UK government is excellent at making legislation available online. For example, here is the <a href="https://www.legislation.gov.uk/ukpga/2002/15/part/2/chapter/1">legislation defining the right to manage</a>. The key thing to be wary of to use the current version of any act or statutory instrument, as they do get amended over time - the current template articles of association for an RTM company have gone through 4 iterations. The other caveat here then, is the need to be aware of freshness and provenance.</p>
 <p>So, each piece of relevant legislation becomes a separate concept (and hence file) in the bundle, where we can track the link to the actual resource along with relevant metadata.</p>
 </section>
-<section id="defining-the-instruction-file" class="level2">
-<h2 class="anchored" data-anchor-id="defining-the-instruction-file">Defining the instruction file</h2>
+<section id="defining-the-document-ingestion---the-instruction-file" class="level2">
+<h2 class="anchored" data-anchor-id="defining-the-document-ingestion---the-instruction-file">Defining the document ingestion - the instruction file</h2>
+<p>The last piece of the puzzle was the instruction file. Easy enough to create a first cut, but how to check operation? Here I defined half a dozen theoretical test questions, some based on queries that have already arisen, some theoretical. For example, could a leaseholder install <a href="https://www.bbc.co.uk/news/articles/c4g3y6398nwo">plugin solar panels</a> on their balcony?</p>
+<p>Using these test cases, I was able to iterate on what instructions file would give the best result. The key points:</p>
+<ul>
+<li>It’s a search-and-citation aid, not a lawyer.</li>
+<li>It answers only from the documents it’s given.</li>
+<li>Every statement is cited.</li>
+<li>It surfaces differences but doesn’t reconcile them.</li>
+<li>It doesn’t draw conclusions the documents don’t.</li>
+<li>Statute law is pointed to, not paraphrased.</li>
+<li>It flags its known limits instead of answering past them.</li>
+<li>Settled matters get written up.</li>
+<li>The tone is plain, factual and brief.</li>
+</ul>
 </section>
-<section id="conclusions" class="level2">
-<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<section id="creating-the-files" class="level2">
+<h2 class="anchored" data-anchor-id="creating-the-files">Creating the files</h2>
+<p>So with the document structure understood, what remained was the processing to generate the output files. To do this, I iterated on a processing prompt for each file, tweaking after each output run. For example, the prompt for the single-file individual lease is</p>
+<pre><code>  _One file, 'sample-lease.md', of 140 sections: "Definitions" and "Particulars" (no reference), then each clause, sub-clause and general-words section with its clause
+  number as its reference, clauses 3, 4 and 5 listing their sub-clause numbers too, then each schedule paragraph with its paragraph number. Parts B, C and E of the Sixth
+  Schedule have no reference. Links such as "Clause 7.10" and "Paragraph 3 of the Seventh Schedule" point to '#clause-07-10' and '#schedule-seventh-03'._</code></pre>
+<p>This illustrates the judgement required — clauses 3–5 keep their sub-clause numbers, these sections have no reference.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This effort took a lot longer than expected… but the largest part of it was to understand the structure of the documents and then embed that understanding in the config files. Now the directors and I have a much more useful set of documents that we can use as we take the block forward. It was also a good exploration of where AI is a force multiplier, and where it can be a trap.</p>
+<p>Anonymised outputs and associated code are at https://github.com/peterharrad/RHDirectorAssistant</p>
 
 
 </section>
