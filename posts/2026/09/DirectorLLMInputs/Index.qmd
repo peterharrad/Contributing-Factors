@@ -1,6 +1,6 @@
 ---
 title: "Creating an LLM input bundle for my fellow directors"
-description: "Using Open Knowledge format so my fellow directors could maxmimise their use of LLMs running the block"
+description: "Generating curated input documents so my fellow directors could maxmimise their use of LLMs running the block"
 author: "Peter Harrad"
 date: 2026-09-16
 date-format: "D MMMM YYYY"
